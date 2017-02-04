@@ -12,6 +12,7 @@
     <modules>
         <module>dataframework-core</module>
         <module>dataframework-ioc</module>
+        <module>dataframework-query</module>
     </modules>
 
     <dependencyManagement>
