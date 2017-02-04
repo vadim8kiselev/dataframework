@@ -1,5 +1,6 @@
 package com.kiselev.dataframework.core.resource.impl;
 
+import com.kiselev.dataframework.core.exception.config.ResourceInitializingException;
 import com.kiselev.dataframework.core.resource.api.ResourceManager;
 
 import java.util.HashMap;
@@ -19,7 +20,7 @@ public class ConfigManager implements ResourceManager {
         try {
             config.putAll((Map<String, String>) resource);
         } catch (ClassCastException exception) {
-            // TODO
+            throw new ResourceInitializingException("Config manager cannot initialize config");
         }
     }
 

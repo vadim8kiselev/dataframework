@@ -1,5 +1,6 @@
 package com.kiselev.dataframework.core.resource.impl;
 
+import com.kiselev.dataframework.core.exception.config.ResourceInitializingException;
 import com.kiselev.dataframework.core.resource.api.ResourceManager;
 
 import javax.sql.DataSource;
@@ -20,7 +21,7 @@ public class ConnectionManager implements ResourceManager {
         try {
             dataSource = (DataSource) resource;
         } catch (ClassCastException exception) {
-            // TODO
+            throw new ResourceInitializingException("Connection manager cannot initialize data source");
         }
     }
 
