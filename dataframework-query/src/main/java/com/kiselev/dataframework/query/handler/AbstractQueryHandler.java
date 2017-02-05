@@ -1,13 +1,12 @@
 package com.kiselev.dataframework.query.handler;
 
-import com.kiselev.dataframework.core.resource.api.ResourceManager;
+import com.kiselev.dataframework.core.resource.factory.ConnectionFactory;
 import com.kiselev.dataframework.query.exception.query.QueryExecutionException;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
 
 /**
  * @author Vadim Kiselev
@@ -17,11 +16,9 @@ import java.sql.SQLException;
 
 public abstract class AbstractQueryHandler<Entity, Response> implements QueryHandler<Entity> {
 
-    private ResourceManager connectionManager;
-
     @Override
     public Entity executeQuery(String executableQuery) {
-        try (Connection connection = (Connection) connectionManager.getResource();
+        try (Connection connection = ConnectionFactory.getConnection();
              PreparedStatement statement = connection.prepareStatement(executableQuery)) {
 
             Response response = execute(statement);
@@ -33,7 +30,7 @@ public abstract class AbstractQueryHandler<Entity, Response> implements QueryHan
 
     @Override
     public Entity executePreparedQuery(String preparedQuery) {
-        try (Connection connection = (Connection) connectionManager.getResource();
+        try (Connection connection = ConnectionFactory.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(preparedQuery)) {
 
             fillStatement(preparedStatement);
@@ -47,7 +44,7 @@ public abstract class AbstractQueryHandler<Entity, Response> implements QueryHan
 
     @Override
     public Entity executeCallableQuery(String callableQuery) {
-        try (Connection connection = (Connection) connectionManager.getResource();
+        try (Connection connection = ConnectionFactory.getConnection();
              CallableStatement callableStatement = connection.prepareCall(callableQuery)) {
 
             fillStatement(callableStatement);
@@ -66,8 +63,4 @@ public abstract class AbstractQueryHandler<Entity, Response> implements QueryHan
     public abstract Entity transform(Response response) throws SQLException;
 
     public abstract Response execute(PreparedStatement statement) throws SQLException;
-
-    public void setConnectionManager(ResourceManager connectionManager) {
-        this.connectionManager = connectionManager;
-    }
 }

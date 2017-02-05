@@ -6,11 +6,9 @@ package com.kiselev.dataframework.core.resource.api;
  * @since 02/04/2017
  */
 
-public interface ResourceManager {
+public interface ResourceManager<Resource> {
 
-    void initResource(Object resource);
+    void initResource(Resource resource);
 
-    Object getResource();
-
-    Object getResource(String key);
+    Resource getResource();
 }

@@ -9,4 +9,6 @@ package com.kiselev.dataframework.core.loader.api;
 public interface Loader {
 
     void load();
+
+    boolean isLoaded();
 }

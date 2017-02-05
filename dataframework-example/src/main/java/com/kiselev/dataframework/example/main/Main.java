@@ -1,13 +1,9 @@
 package com.kiselev.dataframework.example.main;
 
-import com.kiselev.dataframework.core.loader.impl.ConfigLoader;
-import com.kiselev.dataframework.core.loader.impl.DataSourceLoader;
-import com.kiselev.dataframework.core.resource.api.ResourceManager;
-import com.kiselev.dataframework.core.resource.impl.ConfigManager;
-import com.kiselev.dataframework.core.resource.impl.ConnectionManager;
 import com.kiselev.dataframework.example.entity.EntityExample;
 import com.kiselev.dataframework.example.handler.QueryExecutorExample;
 import com.kiselev.dataframework.example.handler.QueryUpdaterExample;
+import com.kiselev.dataframework.query.handler.QueryHandler;
 
 import java.util.List;
 
@@ -20,34 +16,16 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-
-        ////////////////////////////////////////////////////////////
-        ///Framework initialization/////////////////////////////////
-        ResourceManager configManager = new ConfigManager();
-        ResourceManager connectionManager = new ConnectionManager();
-
-        ConfigLoader configLoader = new ConfigLoader();
-        configLoader.setConfigManager(configManager);
-        configLoader.load();
-
-        DataSourceLoader dataSourceLoader = new DataSourceLoader();
-        dataSourceLoader.setConfigManager(configManager);
-        dataSourceLoader.setConnectionManager(connectionManager);
-        dataSourceLoader.load();
-        ////////////////////////////////////////////////////////////
-
-        QueryExecutorExample executor = new QueryExecutorExample();
-        executor.setConnectionManager(connectionManager);
+        QueryHandler<List<EntityExample>> executor = new QueryExecutorExample();
 
         List<EntityExample> result = executor
-                .executeQuery("SELECT * FROM test WHERE id < 8");
+                .executeQuery("SELECT * FROM test WHERE id <> 8");
 
         for (EntityExample entity : result) {
             System.out.println("Table's row : " + entity.getId() + " " + entity.getName());
         }
 
-        QueryUpdaterExample updater = new QueryUpdaterExample();
-        updater.setConnectionManager(connectionManager);
+        QueryHandler<Integer> updater = new QueryUpdaterExample();
 
         Integer affectedRows = updater
                 .executeQuery("INSERT INTO test VALUES(8, 'Vadim')");

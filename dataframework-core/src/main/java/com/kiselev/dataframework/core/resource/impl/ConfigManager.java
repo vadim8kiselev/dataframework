@@ -12,13 +12,23 @@ import java.util.Map;
  * @since 02/04/2017
  */
 
-public class ConfigManager implements ResourceManager {
+public class ConfigManager implements ResourceManager<Map<String, String>> {
+
+    private static final ConfigManager instance = new ConfigManager();
 
     private Map<String, String> config = new HashMap<String, String>();
 
-    public void initResource(Object resource) {
+    private ConfigManager() {
+        // private constructor
+    }
+
+    public static ConfigManager getInstance() {
+        return instance;
+    }
+
+    public void initResource(Map<String, String> config) {
         try {
-            config.putAll((Map<String, String>) resource);
+            this.config.putAll(config);
         } catch (ClassCastException exception) {
             throw new ResourceInitializingException("Config manager cannot initialize config");
         }
@@ -26,9 +36,5 @@ public class ConfigManager implements ResourceManager {
 
     public Map<String, String> getResource() {
         return config;
-    }
-
-    public String getResource(String key) {
-        return config.get(key);
     }
 }
