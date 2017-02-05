@@ -13,7 +13,7 @@ import java.util.Map;
  * @since 02/04/2017
  */
 
-public class DataSouceLoader implements Loader {
+public class DataSourceLoader implements Loader {
 
     private ResourceManager configManager;
 
