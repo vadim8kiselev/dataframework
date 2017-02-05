@@ -13,6 +13,7 @@
         <module>dataframework-core</module>
         <module>dataframework-ioc</module>
         <module>dataframework-query</module>
+        <module>dataframework-example</module>
     </modules>
 
     <dependencyManagement>
