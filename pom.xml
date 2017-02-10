@@ -14,6 +14,7 @@
         <module>dataframework-query</module>
         <module>dataframework-example</module>
         <module>dataframework-mapper</module>
+        <module>dataframework-repository</module>
     </modules>
 
     <dependencyManagement>
