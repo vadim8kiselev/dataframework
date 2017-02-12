@@ -4,7 +4,7 @@ import com.kiselev.dataframework.mapper.annotation.Column;
 import com.kiselev.dataframework.mapper.annotation.Table;
 import com.kiselev.dataframework.mapper.exception.mapping.ClassMappingException;
 import com.kiselev.dataframework.mapper.processor.api.SQLMapper;
-import com.sun.deploy.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.Field;
 import java.sql.ResultSet;
